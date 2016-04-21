@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".EntryScreen"
+            android:name=".List"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,10 +16,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDr8YDl7h3j2gPPWUXI89K8_L5o17XLfMA"
-            />
+            android:value="AIzaSyDr8YDl7h3j2gPPWUXI89K8_L5o17XLfMA" />
+
+        <activity
+            android:name=".EntryScreen"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".FeatureList"
+            android:label="@string/title_activity_feature_list" >
+        </activity>
+        <activity
+            android:name=".BuildingList"
+            android:label="@string/title_activity_building_list" >
+        </activity>
     </application>
 
 </manifest>

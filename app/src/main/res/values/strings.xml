@@ -5,4 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="button1">By features</string>
     <string name="button2">By Buildings</string>
+    <string name="title_activity_list">List</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_feature_list">FeatureList</string>
+    <string name="title_activity_building_list">BuildingList</string>
 </resources>
