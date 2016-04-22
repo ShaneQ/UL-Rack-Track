@@ -9,8 +9,33 @@
     <ListView
         android:id="@+id/note_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
     </ListView>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/List_Button1"
+        android:text="@string/List_But1"
+        android:layout_below="@+id/note_list_view"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/List_Button2"
+        android:text="@string/List_But2"
+        android:layout_below="@+id/List_Button1"
+        android:layout_toRightOf="@+id/but1"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/List_Button3"
+        android:text="@string/List_But3"
+        android:layout_below="@+id/List_Button2"
+        />
 
 </RelativeLayout>
 

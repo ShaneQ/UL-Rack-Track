@@ -10,4 +10,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_feature_list">FeatureList</string>
     <string name="title_activity_building_list">BuildingList</string>
+    List_But1
+    <string name="List_But1">Student</string>
+    <string name="List_But2">Staff</string>
+    <string name="List_But3">Visitor</string>
 </resources>

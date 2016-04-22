@@ -19,12 +19,14 @@ import java.util.ArrayList;
 public class List extends ActionBarActivity {
     ArrayList<String> note;
     ArrayAdapter<String> noteAdapter;
+    public String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        setup();
+        //setup();
+        buttons();
     }
 
     @Override
@@ -53,8 +55,8 @@ public class List extends ActionBarActivity {
         note = new ArrayList<>();
         //instantiate adapter
         note.add("Visitor");
-        note.add("STAFF");
-        note.add("ALL");
+        note.add("Staff");
+        note.add("Student");
         noteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, note);
 
         //attach adapter to Listview
@@ -67,7 +69,46 @@ public class List extends ActionBarActivity {
                 String itemData = note.get(position);
                 Toast.makeText(parent.getContext(), "Clicked " + itemData, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(view.getContext(), EntryScreen.class);
-                intent.putExtra("userType", note.get(position));
+                if(note.get(position).equalsIgnoreCase("student")){
+                    intent.putExtra("userType", "All");
+                }else {
+                    intent.putExtra("userType", note.get(position));
+                }
+                    startActivity(intent);
+
+            }
+        });
+    }
+
+    public void buttons() {
+        Button button1 = (Button)findViewById(R.id.List_Button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button button = (Button)v;
+                Intent intent = new Intent(v.getContext(), EntryScreen.class);
+                intent.putExtra("userType", button.getText());
+                startActivity(intent);
+            }
+        });
+
+        Button button2 = (Button)findViewById(R.id.List_Button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button button = (Button)v;
+                Intent intent = new Intent(v.getContext(), EntryScreen.class);
+                intent.putExtra("userType", button.getText());
+                startActivity(intent);
+            }
+        });
+        Button button3 = (Button)findViewById(R.id.List_Button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button button = (Button)v;
+                Intent intent = new Intent(v.getContext(), EntryScreen.class);
+                intent.putExtra("userType", button.getText());
                 startActivity(intent);
             }
         });

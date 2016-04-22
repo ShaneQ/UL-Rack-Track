@@ -24,6 +24,7 @@ public class BuildingList extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_building_list);
+        setup();
     }
 
     @Override
@@ -42,7 +43,9 @@ public class BuildingList extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, EntryScreen.class);
+            intent.putExtra("userType", userType);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -52,9 +55,15 @@ public class BuildingList extends ActionBarActivity {
         note = new ArrayList<>();
         //instantiate adapter
         ParkingSet test = new ParkingSet();
-        HashSet<Parking> temp = test.parkingspots;
-        for(Parking x:temp){
-            note.add(x.getBuildingName());
+        HashSet<Parking> parkingspots = test.parkingspots;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            userType = extras.getString("userType");
+            for (Parking x : parkingspots) {
+                if (x.getUserType().equalsIgnoreCase(userType) || x.getUserType().equalsIgnoreCase("ALL")) {
+                    note.add(x.getBuildingName());
+                }
+            }
         }
         noteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, note);
 

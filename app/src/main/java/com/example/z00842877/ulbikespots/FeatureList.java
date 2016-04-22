@@ -12,11 +12,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class FeatureList extends ActionBarActivity {
 
-    ArrayList<String> note;
+    public ArrayList<String> note;
     ArrayAdapter<String> noteAdapter;
     public String userType;
 
@@ -47,7 +48,9 @@ public class FeatureList extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, EntryScreen.class);
+            intent.putExtra("userType", userType);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -56,9 +59,29 @@ public class FeatureList extends ActionBarActivity {
     private void setup(){
         note = new ArrayList<>();
         //instantiate adapter
-        note.add("Shower");
-        note.add("Secure");
-        note.add("Coverage");
+        ParkingSet test = new ParkingSet();
+        HashSet<Parking> parkingspots = test.parkingspots;
+        Bundle extras = getIntent().getExtras();
+        HashSet<String> temp = new HashSet<String>();
+        if (extras != null) {
+            userType = extras.getString("userType");
+            for (Parking x : parkingspots) {
+                if (x.getUserType().equalsIgnoreCase(userType) || x.getUserType().equalsIgnoreCase("ALL")) {
+                    if(x.hasShower()){
+                        temp.add("Shower");
+                    }
+                    if(x.isCovered()){
+                        temp.add("Coverage");
+                    }
+                    if(x.isSecure()){
+                        temp.add("Secure");
+                    }
+                }
+            }
+        }
+        for(String x: temp){
+            note.add(x);
+        }
         noteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, note);
 
         //attach adapter to Listview
