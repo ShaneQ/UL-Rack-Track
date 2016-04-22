@@ -26,7 +26,8 @@ import icepick.State;
 
 
 public class EntryScreen extends AppCompatActivity {
-    @State
+
+    //@State
     public String userType;
     private MapFragment mMapFragment;
     public HashSet<Parking> parkingspots;
@@ -36,7 +37,7 @@ public class EntryScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Icepick.restoreInstanceState(this,savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(R.layout.activity_entry_screen);
         ParkingSet test = new ParkingSet();
         parkingspots = test.parkingspots;
@@ -163,8 +164,8 @@ public class EntryScreen extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onCreate(outState);
-        Icepick.restoreInstanceState(this, outState);
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
     }
 
 }
