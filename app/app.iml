@@ -89,6 +89,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -104,8 +105,8 @@
     <orderEntry type="library" exported="" name="play-services-maps-8.4.0" level="project" />
     <orderEntry type="library" exported="" name="data.priority-map-0.0.2" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-24.0.0-alpha1" level="project" />
-    <orderEntry type="library" exported="" name="slingshot-0.10.3" level="project" />
     <orderEntry type="library" exported="" name="stencil-0.3.5" level="project" />
+    <orderEntry type="library" exported="" name="slingshot-0.10.3" level="project" />
     <orderEntry type="library" exported="" name="auto-common-0.3" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-24.0.0-alpha1" level="project" />
     <orderEntry type="library" exported="" name="clojure-1.7.0" level="project" />

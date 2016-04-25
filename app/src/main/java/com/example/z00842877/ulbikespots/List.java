@@ -1,8 +1,8 @@
 package com.example.z00842877.ulbikespots;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +16,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class List extends ActionBarActivity {
+
+public class List extends AppCompatActivity {
     ArrayList<String> note;
     ArrayAdapter<String> noteAdapter;
     public String userType;
@@ -89,6 +90,7 @@ public class List extends ActionBarActivity {
                 Intent intent = new Intent(v.getContext(), EntryScreen.class);
                 intent.putExtra("userType", button.getText());
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -100,6 +102,7 @@ public class List extends ActionBarActivity {
                 Intent intent = new Intent(v.getContext(), EntryScreen.class);
                 intent.putExtra("userType", button.getText());
                 startActivity(intent);
+                finish();
             }
         });
         Button button3 = (Button)findViewById(R.id.List_Button3);
@@ -110,6 +113,7 @@ public class List extends ActionBarActivity {
                 Intent intent = new Intent(v.getContext(), EntryScreen.class);
                 intent.putExtra("userType", button.getText());
                 startActivity(intent);
+                finish();
             }
         });
     }

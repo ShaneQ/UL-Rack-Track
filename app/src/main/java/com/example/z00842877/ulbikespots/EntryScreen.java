@@ -8,8 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toolbar;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -18,18 +18,16 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import icepick.Icepick;
-import icepick.State;
 
 
 public class EntryScreen extends AppCompatActivity {
 
     //@State
     public String userType;
-    private MapFragment mMapFragment;
+    private MapFragment mapFragment;
     public HashSet<Parking> parkingspots;
     private HashSet<Parking> tempParkingSpots;
 
@@ -96,12 +94,12 @@ public class EntryScreen extends AppCompatActivity {
 
 
     public void initilaiseMap(){
-        mMapFragment = MapFragment.newInstance();
+        mapFragment = MapFragment.newInstance();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.map, mMapFragment);
+        fragmentTransaction.add(R.id.map, mapFragment);
         fragmentTransaction.commit();
 
-        mMapFragment.getMapAsync(new OnMapReadyCallback() {
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 for (Parking x : tempParkingSpots) {
@@ -124,6 +122,7 @@ public class EntryScreen extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), FeatureList.class);
                 intent.putExtra("userType", userType);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -134,6 +133,7 @@ public class EntryScreen extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), BuildingList.class);
                 intent.putExtra("userType", userType);
                 startActivity(intent);
+                finish();
             }
         });
     }

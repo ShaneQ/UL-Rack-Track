@@ -1,8 +1,8 @@
 package com.example.z00842877.ulbikespots;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +14,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import icepick.Icepick;
+import icepick.State;
 
-public class BuildingList extends ActionBarActivity {
+
+public class BuildingList extends AppCompatActivity {
     ArrayList<String> note;
     ArrayAdapter<String> noteAdapter;
-    public String userType;
+    @State public String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,5 +85,11 @@ public class BuildingList extends ActionBarActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
     }
 }
