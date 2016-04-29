@@ -51,9 +51,10 @@ public class FeatureList extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, EntryScreen.class);
+            Intent intent = new Intent(this, MapScreen.class);
             intent.putExtra("userType", userType);
             startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -96,7 +97,7 @@ public class FeatureList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String itemData = note.get(position);
                 Toast.makeText(parent.getContext(), "Clicked " + itemData, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(view.getContext(), EntryScreen.class);
+                Intent intent = new Intent(view.getContext(), MapScreen.class);
                 intent.putExtra("featureType", note.get(position));
                 intent.putExtra("userType", userType);
                 startActivity(intent);

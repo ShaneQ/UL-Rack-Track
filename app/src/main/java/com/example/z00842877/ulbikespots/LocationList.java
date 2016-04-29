@@ -18,7 +18,7 @@ import icepick.Icepick;
 import icepick.State;
 
 
-public class BuildingList extends AppCompatActivity {
+public class LocationList extends AppCompatActivity {
     ArrayList<String> note;
     ArrayAdapter<String> noteAdapter;
     @State public String userType;
@@ -26,14 +26,14 @@ public class BuildingList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_building_list);
+        setContentView(R.layout.activity_location_list);
         setup();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_building_list, menu);
+        getMenuInflater().inflate(R.menu.menu_location_list, menu);
         return true;
     }
 
@@ -46,9 +46,10 @@ public class BuildingList extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, EntryScreen.class);
+            Intent intent = new Intent(this, MapScreen.class);
             intent.putExtra("userType", userType);
             startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -79,10 +80,11 @@ public class BuildingList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String itemData = note.get(position);
                 Toast.makeText(parent.getContext(), "Clicked " + itemData, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(view.getContext(), EntryScreen.class);
+                Intent intent = new Intent(view.getContext(), MapScreen.class);
                 intent.putExtra("buildingName", note.get(position));
                 intent.putExtra("userType", userType);
                 startActivity(intent);
+                finish();
             }
         });
     }

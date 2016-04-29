@@ -1,16 +1,18 @@
 <resources>
     <string name="app_name">UL Rack Track</string>
 
-    <string name="message">Welocome to UL!</string>
+    <string name="message">Welcome to UL Rack Track</string>
+
     <string name="action_settings">Settings</string>
-    <string name="button1">By features</string>
-    <string name="button2">By Buildings</string>
+    <string name="filter">Filter racks by</string>
+    <string name="button1">By Feature</string>
+    <string name="button2">By Location</string>
     <string name="title_activity_list">List</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_feature_list">FeatureList</string>
-    <string name="title_activity_building_list">BuildingList</string>
-    List_But1
+    <string name="title_activity_feature_list">Select Feature</string>
+    <string name="title_activity_building_list">Select Location</string>
+
     <string name="List_But1">Student</string>
     <string name="List_But2">Staff</string>
     <string name="List_But3">Visitor</string>

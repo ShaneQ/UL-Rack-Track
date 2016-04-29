@@ -8,9 +8,9 @@ public class Parking {
     private double latitude;
     private double longitude;
     private String location;
+    private String user;
     private boolean coverage;
     private boolean secure;
-    private String user;
     private boolean shower;
     private float color;
 

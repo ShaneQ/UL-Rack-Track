@@ -1,143 +1,33 @@
 package com.example.z00842877.ulbikespots;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Toolbar;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import java.util.ArrayList;
 
-import java.util.HashSet;
-
-import icepick.Icepick;
 
 
 public class EntryScreen extends AppCompatActivity {
-
-    //@State
+    ArrayList<String> note;
+    ArrayAdapter<String> noteAdapter;
     public String userType;
-    private MapFragment mapFragment;
-    public HashSet<Parking> parkingspots;
-    private HashSet<Parking> tempParkingSpots;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Icepick.restoreInstanceState(this, savedInstanceState);
-        setContentView(R.layout.activity_entry_screen);
-        ParkingSet test = new ParkingSet();
-        parkingspots = test.parkingspots;
-        specifyHashSet();
-        initilaiseMap();
+        setContentView(R.layout.entry_screen);
+        //setup();
         buttons();
-
     }
-
-    public void specifyHashSet(){
-        tempParkingSpots = new HashSet<>();
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            userType = extras.getString("userType");
-            for(Parking x : parkingspots){
-                if(x.getUserType().equalsIgnoreCase(userType) || x.getUserType().equalsIgnoreCase("ALL")){
-                    tempParkingSpots.add(x);
-                }
-            }
-            String buildingName = extras.getString("buildingName");
-            String featureType = extras.getString("featureType");
-            HashSet<Parking> tempRemove =new  HashSet<>();
-            if(featureType != null) {
-                if (featureType.equalsIgnoreCase("Shower")) {
-                    for (Parking x : tempParkingSpots) {
-                        if (!x.hasShower()) {
-                            tempRemove.add(x);
-                        }
-                    }
-                } else if (featureType.equalsIgnoreCase("Coverage")) {
-                    for (Parking x : tempParkingSpots) {
-                        if (!x.isCovered()) {
-                            tempRemove.add(x);
-                        }
-                    }
-                } else if (featureType.equalsIgnoreCase("Secure")) {
-                    for (Parking x : tempParkingSpots) {
-                        if (!x.isSecure()) {
-                            tempRemove.add(x);
-                        }
-                    }
-                }
-            }  else if(buildingName != null) {
-                for (Parking x : tempParkingSpots) {
-                    if (!x.getBuildingName().equalsIgnoreCase(buildingName)) {
-                        tempRemove.add(x);
-                    }
-                }
-            }
-            tempParkingSpots.removeAll(tempRemove);
-        }else{
-            tempParkingSpots = parkingspots;
-        }
-
-    }
-
-
-    public void initilaiseMap(){
-        mapFragment = MapFragment.newInstance();
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.map, mapFragment);
-        fragmentTransaction.commit();
-
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                for (Parking x : tempParkingSpots) {
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(x.getLatitude(), x.getLongitude()))
-                            .title(x.getLocation())
-                            .snippet(x.toString())
-                            .icon(BitmapDescriptorFactory.defaultMarker(x.getColor())));
-                }
-                googleMap.moveCamera(CameraUpdateFactory
-                        .newLatLngZoom(new LatLng(52.67514489282713, -8.571814621734575), 15));
-            }
-        });
-    }
-    public void buttons() {
-        Button buttonNext = (Button)findViewById(R.id.but1);
-        buttonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), FeatureList.class);
-                intent.putExtra("userType", userType);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        Button buttonBut2 = (Button)findViewById(R.id.but2);
-        buttonBut2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), BuildingList.class);
-                intent.putExtra("userType", userType);
-                startActivity(intent);
-                finish();
-            }
-        });
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -155,17 +45,78 @@ public class EntryScreen extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, List.class);
-            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Icepick.saveInstanceState(this, outState);
+    private void setup(){
+        note = new ArrayList<>();
+        //instantiate adapter
+        note.add("Visitor");
+        note.add("Staff");
+        note.add("Student");
+        noteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, note);
+
+        //attach adapter to Listview
+        ListView noteListView = (ListView) findViewById(R.id.note_list_view);
+        noteListView.setAdapter(noteAdapter);
+
+        noteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String itemData = note.get(position);
+                Toast.makeText(parent.getContext(), "Clicked " + itemData, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), MapScreen.class);
+                if(note.get(position).equalsIgnoreCase("student")){
+                    intent.putExtra("userType", "All");
+                }else {
+                    intent.putExtra("userType", note.get(position));
+                }
+                    startActivity(intent);
+                    finish();
+
+            }
+        });
     }
+
+    public void buttons() {
+        Button button1 = (Button)findViewById(R.id.List_Button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button button = (Button)v;
+                Intent intent = new Intent(v.getContext(), MapScreen.class);
+                intent.putExtra("userType", button.getText());
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        Button button2 = (Button)findViewById(R.id.List_Button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button button = (Button)v;
+                Intent intent = new Intent(v.getContext(), MapScreen.class);
+                intent.putExtra("userType", button.getText());
+                startActivity(intent);
+                finish();
+            }
+        });
+        Button button3 = (Button)findViewById(R.id.List_Button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button button = (Button)v;
+                Intent intent = new Intent(v.getContext(), MapScreen.class);
+                intent.putExtra("userType", button.getText());
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
 
 }
